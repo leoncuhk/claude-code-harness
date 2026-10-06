@@ -6,6 +6,18 @@ Change history for claude-code-harness.
 
 ## [Unreleased]
 
+### テーマ: 実験プロジェクト `experiments/theme-alpha`（テーマ投資リサーチ）を追加
+
+**Harness 本体とは独立した Python の実験プロジェクトです。プラグインの挙動は変わりません。**
+
+#### 1. テーマ投資 Case Lab のフィードバックループ MVP
+
+**今まで**: テーマ投資の仮説 H1–H4 は、合成データ上の検証基盤（`make smoke` 8/8）しかありませんでした。実データの事例では一度も回していませんでした。
+
+**今後**: 無料の Web ソースから PIT（point-in-time）の週次パネルを作る `scripts/fetch_case_data.py` を実装しました。ソースは、株価が Tencent、決算が Eastmoney、ETF の上場日と保有銘柄が天天基金、注目度が Wikipedia・売買代金・OSSInsight です。
+
+この上で 3 事例のフィードバックループを iter 0–7 まで回しました。事例は米国宇宙株、A 株光通信、香港 AI モデル株です。2 件を採用、5 件を却下し、3 連続で却下となった時点で停止しました。結果は `experiments/theme-alpha/reports/loop/SUMMARY.md` にあります。
+
 ## [4.10.0] - 2026-05-12
 
 - Phase 68 local trial: TDD enforcement L1+L2+L3+L4 introduced as an opt-in workflow surface; global enforcement remains disabled by default.

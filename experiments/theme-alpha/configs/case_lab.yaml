@@ -1,0 +1,16 @@
+# Case lab: feedback-loop configuration. See LOOP.md.
+# The loop changes exactly ONE key under `mechanisms` per iteration. `frozen` never changes.
+frozen:
+  breakout_threshold: 0.20        # landmark definition (evaluation only)
+  exit_eval_horizon_weeks: 26
+  dev_cases: [us_space_2025, cn_optical_2025, hk_ai_openclaw_2026]
+  holdout_rule: "top-8 themes by attention jump in 2025-01..2026-06 (US/A/HK), excluding dev cases; selected by scripts/select_holdout_themes.py BEFORE any return is inspected"
+mechanisms:
+  attention_source: news_count    # news_count | github_stars_delta | search_index | token_share | etf_flows
+  attention_half_life_weeks: 8
+  expectations_engine: auto       # fcf | sales | auto  (auto = sales-driven when FCF <= 0)  [loop iter 1 ACCEPT]
+  crowd_percentile_basis: own_history   # own_history | peer_cross_section
+  crowd_min_history_weeks: 26
+  ig_pct_min: 0.80
+  use_supply_events: false        # IPOs / lockup expiries / index inclusions as crowding input
+  confirm_with_revisions: true    # PROXY: decelerating reported TTM revenue (no consensus feed)  [loop iter 4 ACCEPT]

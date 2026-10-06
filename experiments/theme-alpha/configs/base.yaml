@@ -1,0 +1,36 @@
+# ---- research universe & calendar ------------------------------------------------------------
+market: CN_A                      # v1 scope: A-share. US/HK are Phase 6 extensions.
+frequency: W-FRI                  # weekly panel, stamped at last trading day of week
+universe:
+  include_delisted: true          # survivorship: mandatory
+  min_listing_days: 120           # exclude IPO honeymoon
+  exclude_st: true
+  untradable_rule: "suspended or closed at limit-up (buy side) / limit-down (sell side) -> NaN return for entry/exit week"
+benchmark: ew_universe            # alternatives: 000985.CSI (中证全指), 000906.SH (中证800)
+
+# ---- splits: FROZEN before any real outcome is inspected ------------------------------------
+splits:
+  discovery:  {start: "2016-01-01", end: "2020-12-31"}   # exploratory allowed
+  validation: {start: "2021-01-01", end: "2023-12-31"}   # confirmatory, pre-registered gates
+  holdout:    {start: "2024-01-01", end: "2026-06-30"}   # ONE shot per hypothesis (make freeze first)
+
+# ---- trading costs (A-share, per side unless noted) ------------------------------------------
+costs:
+  commission: 0.00025
+  stamp_duty_sell: 0.0005
+  slippage: 0.0010
+  round_trip: 0.0030              # used by hypotheses: 2*commission + stamp + 2*slippage, rounded up
+
+# ---- implied expectations engine -------------------------------------------------------------
+expectations:
+  engine: theme_alpha.signals.expectations.TwoStageReverseDCF   # or: <your_module>.implied_growth via ExternalReverseDCF
+  wacc: 0.09
+  terminal_g: 0.03
+  years: 10
+  non_positive_fcf: nopat_fallback   # Phase 1: implement NOPAT-based fallback, else NaN
+
+# ---- text / attention --------------------------------------------------------------------------
+text:
+  embedding_model: BAAI/bge-m3     # multilingual; treat weeks BEFORE the model's release as possibly contaminated
+  zero_shot_threshold: 0.50        # BERTrend paper uses 0.4-0.6 for expert-defined topics
+  llm_in_signal_path: false        # HARD RULE for backtests (parametric look-ahead)

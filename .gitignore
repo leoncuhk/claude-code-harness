@@ -40,6 +40,7 @@ env.local
 # Cursor writes the latest harness-mem context into these rule files.
 **/CLAUDE.md
 !harness-ui/CLAUDE.md
+!experiments/theme-alpha/CLAUDE.md
 
 # harness-ui local state (generated)
 harness-ui/.claude/

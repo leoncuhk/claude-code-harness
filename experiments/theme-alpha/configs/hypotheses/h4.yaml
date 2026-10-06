@@ -1,0 +1,18 @@
+id: H4
+title: Crowding x implied-expectations filter reduces relative drawdown of theme rotation
+params:
+  min_members: 5
+  min_age_weeks: 26
+  etf_window_weeks: 26
+  etf_min: 1
+  ig_pct_min: 0.80
+  ig_min_history_weeks: 52
+  rebalance_weeks: 4
+  te_target_annual: 0.04     # THRO targets 3-5% TE; we use the midpoint
+  grid: {lookback_weeks: [8, 13, 26], top_k: [3, 5, 8]}
+  cpcv: {n_groups: 10, k_test: 2, purge: 4, embargo: 4, pbo_blocks: 10}
+gates:
+  mdd_red_median_ge: 0.20
+  mdd_red_frac_paths_ge: 0.70
+  ir_diff_median_ge: -0.10
+  configs_improved_frac_ge: 0.80

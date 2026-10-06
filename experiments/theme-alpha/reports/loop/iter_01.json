@@ -1,0 +1,126 @@
+{
+  "iter": 1,
+  "note": "problem A: loss-makers (US/HK) have FCF<=0 -> use sales-driven reverse DCF when FCF<=0; expect US/HK IG coverage up and H4 able to fire; CN mostly unchanged",
+  "override": [
+    "expectations_engine=auto"
+  ],
+  "mechanisms": {
+    "attention_source": "news_count",
+    "attention_half_life_weeks": 8,
+    "expectations_engine": "auto",
+    "crowd_percentile_basis": "own_history",
+    "crowd_min_history_weeks": 26,
+    "ig_pct_min": 0.8,
+    "use_supply_events": false,
+    "confirm_with_revisions": false
+  },
+  "results": {
+    "us_space_2025": {
+      "landmarks": {
+        "breakout_week": "2025-06-06",
+        "peak_week": "2026-05-29",
+        "rise_to_peak": 1.6535135343530005,
+        "drawdown_after_peak": 0.5555444032770331
+      },
+      "H1": {
+        "attention_source": "news_count",
+        "attention_source_used": "wiki_views",
+        "first_weak_to_strong": null,
+        "lead_weeks_vs_breakout": null,
+        "car13_after_event": null
+      },
+      "H2": {
+        "capture_ratio": 0.8181327530642376,
+        "strategy_excess": 0.9684945099546889,
+        "buy_hold_excess": 1.1837865020405134
+      },
+      "H3": {
+        "n_second_order": 0
+      },
+      "H4": {
+        "first_flag": "2026-03-06",
+        "flag_lead_weeks_vs_peak": 12,
+        "exit_value_to_end": -0.23024245030405455,
+        "exit_value_26w": -0.18183849964756416,
+        "flag_weeks": 12,
+        "implied_growth_coverage_core": 0.831360946745562,
+        "blocked_by_missing_expectations": false
+      }
+    },
+    "cn_optical_2025": {
+      "landmarks": {
+        "breakout_week": "2025-05-09",
+        "peak_week": "2026-06-19",
+        "rise_to_peak": 2.6483497039898714,
+        "drawdown_after_peak": 0.03997086337880651
+      },
+      "H1": {
+        "attention_source": "news_count",
+        "attention_source_used": "turnover",
+        "first_weak_to_strong": "2025-06-13",
+        "lead_weeks_vs_breakout": -5,
+        "car13_after_event": 1.1480658767981091
+      },
+      "H2": {
+        "capture_ratio": 0.7453642191718207,
+        "strategy_excess": 1.6302287214595534,
+        "buy_hold_excess": 2.1871572038578826
+      },
+      "H3": {
+        "n_second_order": 66,
+        "xcorr_by_lag": {
+          "0": 0.3117869651781728,
+          "1": -0.1986275680716352,
+          "2": 0.11755812125981374,
+          "3": 0.1283935206240286,
+          "4": 0.2146618084023654
+        },
+        "best_lag": 0,
+        "lag1_minus_lag0": -0.510414533249808,
+        "next_week_beta": -0.0491018759444499,
+        "next_week_t": -1.9990492995446971
+      },
+      "H4": {
+        "first_flag": "2025-06-27",
+        "flag_lead_weeks_vs_peak": 51,
+        "exit_value_to_end": -2.0045586469258563,
+        "exit_value_26w": -1.3126682487937589,
+        "flag_weeks": 35,
+        "implied_growth_coverage_core": 0.9888888888888889,
+        "blocked_by_missing_expectations": false
+      }
+    },
+    "hk_ai_openclaw_2026": {
+      "landmarks": {
+        "breakout_week": "2026-01-16",
+        "peak_week": "2026-06-19",
+        "rise_to_peak": 2.51836052694192,
+        "drawdown_after_peak": 0.7087338139142789
+      },
+      "H1": {
+        "attention_source": "news_count",
+        "attention_source_used": "wiki_views",
+        "first_weak_to_strong": null,
+        "lead_weeks_vs_breakout": null,
+        "car13_after_event": null
+      },
+      "H2": {
+        "capture_ratio": 0.2722436322644482,
+        "strategy_excess": 0.519892959860899,
+        "buy_hold_excess": 1.9096606797983533
+      },
+      "H3": {
+        "n_second_order": 0
+      },
+      "H4": {
+        "first_flag": null,
+        "flag_lead_weeks_vs_peak": null,
+        "exit_value_to_end": null,
+        "exit_value_26w": null,
+        "flag_weeks": 0,
+        "implied_growth_coverage_core": 1.0,
+        "blocked_by_missing_expectations": false
+      }
+    }
+  }
+}

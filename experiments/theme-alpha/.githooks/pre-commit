@@ -1,0 +1,16 @@
+#!/bin/sh
+# Backup guard (also catches edits made through Bash): frozen configs + append-only trial log.
+python3 - <<'PY'
+import subprocess, sys
+sys.path.insert(0, "src")
+from theme_alpha.validation.prereg import check_frozen
+import os
+if os.path.exists("configs/prereg.lock"):
+    changed = check_frozen()
+    if changed:
+        sys.exit(f"pre-commit: frozen configs changed {changed}. Revert or tag the run exploratory.")
+old = subprocess.run(["git", "show", "HEAD:reports/trials.jsonl"], capture_output=True, text=True)
+if old.returncode == 0 and os.path.exists("reports/trials.jsonl"):
+    if not open("reports/trials.jsonl", encoding="utf-8").read().startswith(old.stdout):
+        sys.exit("pre-commit: reports/trials.jsonl must be append-only (existing lines changed or removed).")
+PY

@@ -1,0 +1,52 @@
+case_id: us_space_2025
+title: 美股商业航天（太空经济）主题：2025-10 加速 → 2026-06 SpaceX IPO 前后见顶回落
+role: dev
+market: US
+window: {start: "2025-04-04", end: "2026-09-25"}
+universe:
+  benchmark: SPY                       # alt: IWM (small/mid-cap heavy theme)
+  core: [RKLB, ASTS, PL, LUNR, FLY, RDW, BKSY, SPCE, GSAT, IRDM, VSAT, SATS]
+  late_listing: {SPCX: "2026-06-12"}   # SpaceX; NaN before listing (do not back-fill)
+  second_order_candidates: []          # agent builds PIT from news co-mentions + UFO holdings history; never hand-pick with hindsight
+  pit_universe_rule: "member if held by UFO at the last holdings report on/before t, or co-mentioned with >=2 core names in news in (t-52w, t]"
+attention_sources:
+  news_count: "count of articles mentioning >=1 core ticker or 'space stocks' per week"
+  search_index: "Google Trends weekly: 'space stocks', 'SpaceX IPO' (normalise per pull; store raw pulls with pull date)"
+  etf_flows: "weekly net flows UFO, ARKX, NASA, MARS, ORBX (shares x NAV changes)"
+crowding_sources:
+  etf_launches:          # dates are the knowable listing dates
+    - {etf: NASA, name: Tema Space Innovators ETF, date: "2026-03-30"}
+    - {etf: MARS, name: Roundhill Space & Technology ETF, date: "TBD-agent-verify"}
+    - {etf: ORBX, name: Global X Space Tech ETF, date: "TBD-agent-verify"}
+    - {etf: TBD, name: VanEck Space ETF, date: "2026-05 (early)"}
+    - {etf: TBD, name: Corgi Space and Satellite Communications ETF, date: "2026-05 (early)"}
+  supply_events:
+    - {date: "2026-06-12", kind: ipo, ticker: SPCX, note: "SpaceX IPO at $135, ~$1.75T; competes for the same theme capital", size_frac: 1.0}
+known_events:            # ANNOTATION ONLY
+  - {date: "2025-10-08", event: "ASTS definitive commercial agreement with Verizon; stock +315% YTD at that point"}
+  - {date: "2025-10-17", event: "reports of US direct capital investment up to $10B across 27 sectors incl. spacecraft/launch; space stocks rally"}
+  - {date: "2025-12-31", event: "UFO ~+68% in 2025 vs S&P ~+17%"}
+  - {date: "2026-04-01", event: "SpaceX confidential S-1 (early April)"}
+  - {date: "2026-05-22", event: "Reuters: 6 new space ETFs in 3 months; $1.3B inflows in a month; space ETF AUM $3.3B"}
+  - {date: "2026-06-12", event: "SPCX lists; space stocks sell off the same day (RKLB, PL ~-8%, ASTS > -12%)"}
+  - {date: "2026-06-25", event: "UFO ~-26% over one month; RKLB ~-40% from early-June high; ASTS >130x fwd sales, RKLB ~60x"}
+hypotheses:
+  H1: "attention (news/search) shifts weak->strong in Sep-Oct 2025, BEFORE most of the Q4 run; check lead weeks vs breakout"
+  H2: "time-series momentum of the core basket captures most of Oct-2025..May-2026 and exits early in June 2026"
+  H3: "SpaceX proxies (e.g. SATS) and small suppliers lag the core by 1-2 weeks"
+  H4: "ETF launches (Mar-May 2026) + core implied growth at own-history highs flag BEFORE the June peak; exit value > 0"
+expectations_note: "most core names have FCF<=0 -> expect fcf engine coverage ~0; baseline will show blocked_by_missing_expectations=True"
+sources:
+  - https://daytraders.com/news/2025/10/09/space-stock-tracker-rocketlab-hits-new-highs-ast-partners-with-verizon
+  - https://daytraders.com/news/2025/10/17/space-stock-tracker-ast-hits-new-highs-rocket-lab-bullish-coverage
+  - https://www.thestar.com.my/tech/tech-news/2026/05/22/analysis-space-etfs-booming-in-anticipation-of-spacex-ipo
+  - https://www.webull.ca/news-detail/15118768595305472
+# ---- data-build rules (scripts/fetch_case_data.py); rules, not hindsight lists ----
+etf_rule:
+  search_terms: ["space", "satellite", "orbit", "rocket", "vaneck space", "space etf"]   # Nasdaq name search
+  name_regex: "space|satellite|orbit"
+  name_exclude: "2x|daily|leveraged|inverse|acquisition|bear|bull"
+  always_include: [UFO, ARKX, NASA, MARS, ORBX]   # ETFs named in crowding_sources (listing dates still from first trade)
+wiki_articles:
+  en.wikipedia: [Rocket_Lab, AST_SpaceMobile, Planet_Labs, Intuitive_Machines, Firefly_Aerospace, Redwire,
+                 BlackSky, Virgin_Galactic, Globalstar, Iridium_Communications, Viasat, EchoStar]

@@ -1,0 +1,14 @@
+id: H2
+title: Concept momentum survives publication (replication) and is not subsumed by stock momentum
+params:
+  formation_weeks: 4
+  holding_weeks: 4
+  min_members: 5
+  publication_date: "2022-01-01"   # 'Concept links and return momentum', JBF vol.134 (2022)
+  fm_post_only: true
+  robustness_grid: {formation_weeks: [4, 13, 26], holding_weeks: [4, 13]}   # reported, logged as trials
+gates:
+  post_mean_gt: 0.0
+  post_t_ge: 2.0             # replication hurdle
+  post_ir_net_ge: 0.3        # implementable long-only leg, after costs
+  fm_concept_t_ge: 2.0       # survives own-stock momentum

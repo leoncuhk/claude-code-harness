@@ -1,0 +1,11 @@
+id: H3
+title: Spillover to news-linked non-members (second-order beneficiaries)
+params:
+  link: comention            # alternatives (Phase 2+): text_similarity, union
+  link_window_weeks: 52
+  min_members: 5
+  min_linked: 30
+gates:
+  fm_s_t_ge: 3.0
+  fm_s_coef_gt: 0.0
+  ls_net_mean_gt: 0.0        # after measured turnover costs

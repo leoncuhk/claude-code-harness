@@ -1,0 +1,53 @@
+case_id: hk_ai_openclaw_2026
+title: OpenClaw（“龙虾”）带动的港股大模型主题：智谱 / MiniMax，2026-02 起爆，同主题内极端分化
+role: dev
+market: HK
+window: {start: "2026-01-09", end: "2026-09-25"}
+universe:
+  benchmark: "HSTECH"                       # 恒生科技指数
+  core: ["2513.HK", "0100.HK"]              # 智谱 (IPO 2026-01-08 @116.2), MiniMax (IPO 2026-01-09 @165)
+  second_order_candidates: []               # agent builds PIT via news co-mention (cloud/compute/agent apps, HK + A-share)
+  note: "only two core names -> case is about stock-level divergence inside one theme, not basket statistics"
+attention_sources:
+  github_stars_delta: "weekly new stars of the OpenClaw repo (GitHub stargazers API with timestamps; PIT)"
+  token_share: "OpenRouter weekly token share of MiniMax / GLM models (manual CSV from public rankings, stamped with capture date)"
+  news_count: "中文财经新闻 OpenClaw|龙虾 + 核心股名 周文档数"
+crowding_sources:
+  supply_events:
+    - {date: "2026-07-08", kind: lockup, ticker: "2513.HK", size_frac: 0.0576, note: "首批解禁约 5.76%"}
+    - {date: "2026-07-09", kind: lockup, ticker: "0100.HK", size_frac: 0.4485, note: "首批解禁约 44.85%"}
+    - {date: "2026-05-22", kind: index_inclusion, ticker: "both", size_frac: 0.0, note: "恒生科技指数纳入（季检公布）"}
+  etf_launches: "agent: HK/A 'AI 大模型/智能体' ETF launches in window"
+  short_interest: "HKEX daily short selling turnover per stock"
+known_events:            # ANNOTATION ONLY
+  - {date: "2025-11-01", event: "OpenClaw released (Nov 2025); later fastest-growing GitHub project"}
+  - {date: "2026-03-02", event: "MiniMax FY2025 results: revenue $79.0M (+159%), >70% international"}
+  - {date: "2026-03-10", event: "Feb 1-Mar 10: MiniMax +157%, 智谱 +186%; MiniMax mkt cap ~HK$383B on Mar 10"}
+  - {date: "2026-03-18", event: "MiniMax all-time high HK$1330"}
+  - {date: "2026-06-17", event: "科创板第五套标准扩至 AI 大模型；智谱科创板辅导验收"}
+  - {date: "2026-06-26", event: "智谱 ~20x YTD, >HK$1T; MiniMax -68% from peak"}
+  - {date: "2026-07-09", event: "MiniMax lockup day -18%; -77% from peak"}
+  - {date: "2026-08-18", event: "智谱 -13%, MiniMax -4.5%; short-selling metrics at local highs beforehand"}
+hypotheses:
+  H1: "GitHub-star velocity / token share lead price better than news count (test attention_source switch)"
+  H2: "time-series momentum works for 智谱 into June, fails for MiniMax after March -> theme-level momentum is not enough"
+  H3: "second-order (A/HK cloud & compute) lag the two models' moves; weak because the theme is 2 names"
+  H4: "own-history percentile needs >=26w; IPOs in Jan -> flag cannot fire before ~July (blocked). Supply (44.85% lockup) is a scheduled, PIT-legal crowding input -> test use_supply_events"
+expectations_note: "both loss-making -> need sales-driven engine; MiniMax ~HK$383B on $79M FY25 revenue implies extreme growth"
+sources:
+  - https://news.pedaily.cn/202603/561731.shtml
+  - https://stock.10jqka.com.cn/20260710/c678092030.shtml
+  - https://www.bbtnews.com.cn/2026/0709/598804.shtml
+  - https://www.bjnews.com.cn/detail/1784511658189624.html
+  - https://tech.ifeng.com/c/8uLqpqvxnTq
+  - https://stock.10jqka.com.cn/20260818/c679048939.shtml
+# ---- data-build rules (scripts/fetch_case_data.py); rules, not hindsight lists ----
+etf_rule:
+  name_regex: "$^"                      # no A-share ETF is named after HK model makers
+  name_exclude: "$^"
+  holdings_pool_regex: "港股.*(?:信息技术|科技|互联网|人工智能|AI)|恒生科技|恒生互联网"
+  holdings_min_core: 1                  # two-name theme
+  second_order_min_weeks: 4
+github_repo: openclaw/openclaw
+wiki_articles:
+  en.wikipedia: [MiniMax_(company), Zhipu_AI]

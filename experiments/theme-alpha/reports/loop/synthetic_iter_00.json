@@ -1,0 +1,59 @@
+{
+  "iter": 0,
+  "note": "harness check",
+  "override": [],
+  "mechanisms": {
+    "attention_source": "news_count",
+    "attention_half_life_weeks": 8,
+    "expectations_engine": "fcf",
+    "crowd_percentile_basis": "own_history",
+    "crowd_min_history_weeks": 26,
+    "ig_pct_min": 0.8,
+    "use_supply_events": false,
+    "confirm_with_revisions": false
+  },
+  "results": {
+    "synthetic": {
+      "landmarks": {
+        "breakout_week": "2019-05-03",
+        "peak_week": "2019-05-17",
+        "rise_to_peak": 0.23914045437666331,
+        "drawdown_after_peak": 0.5541542078586789
+      },
+      "H1": {
+        "attention_source": "news_count",
+        "first_weak_to_strong": "2019-10-18",
+        "lead_weeks_vs_breakout": -24,
+        "car13_after_event": 0.0025445899212912654
+      },
+      "H2": {
+        "capture_ratio": -0.03339143079511565,
+        "strategy_excess": 0.012927643185955032,
+        "buy_hold_excess": -0.38715451473993234
+      },
+      "H3": {
+        "n_second_order": 15,
+        "xcorr_by_lag": {
+          "0": -0.17537820226198392,
+          "1": -0.1760053215559263,
+          "2": -0.038350946309038236,
+          "3": 0.035006660999795984,
+          "4": -0.044032910821584115
+        },
+        "best_lag": 3,
+        "lag1_minus_lag0": -0.0006271192939423798,
+        "next_week_beta": -0.0926024323790813,
+        "next_week_t": -1.7174546540980693
+      },
+      "H4": {
+        "first_flag": "2020-01-03",
+        "flag_lead_weeks_vs_peak": -33,
+        "exit_value_to_end": 0.4140026308697351,
+        "exit_value_26w": 0.407952812816342,
+        "flag_weeks": 14,
+        "implied_growth_coverage_core": 1.0,
+        "blocked_by_missing_expectations": false
+      }
+    }
+  }
+}

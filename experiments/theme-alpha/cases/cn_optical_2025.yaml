@@ -1,0 +1,44 @@
+case_id: cn_optical_2025
+title: A 股光通信 / CPO（“易中天”）主题：2025 全年主升，业绩兑现型
+role: dev
+market: CN_A
+window: {start: "2024-10-11", end: "2026-06-26"}
+universe:
+  benchmark: "000985.CSI"                  # 中证全指; alt 399006.SZ 创业板指
+  core: ["300308.SZ", "300502.SZ", "300394.SZ"]   # 中际旭创, 新易盛, 天孚通信
+  second_order_candidates: []              # agent builds PIT: CPO/光模块 concept members at t (snapshot/JQ history) + news co-mentions
+  watchlist_for_review_only: ["688498.SH 源杰科技 (激光芯片)", "000988.SZ 华工科技", "002281.SZ 光迅科技"]   # verify codes; NOT for signal construction
+  pit_universe_rule: "member if in THS/EM 'CPO'/'光模块' concept as of t (PIT SCD), or co-mentioned with >=2 core names in (t-52w, t]"
+attention_sources:
+  news_count: "财经新闻/快讯中出现 CPO|光模块|1.6T 或核心股名的周文档数 (zero-shot vs concept text)"
+  concept_heat: "同花顺热榜 ths_hot 概念板块热度 (Tushare, 6000 积分)"
+crowding_sources:
+  etf_launches: "agent: list 通信/光模块/CPO 主题 ETF 上市日 (fund_basic list_date + 业绩基准文本 zero-shot 映射)"
+  supply_events:
+    - {date: "2025-11-20", kind: insider_sale, ticker: "300308.SZ", note: "控股股东 2025-11-20 至 2026-01-15 大宗减持 550 万股 ~28.7 亿元", size_frac: 0.005}
+  revisions: "一致预期 EPS 修正 (analyst consensus) — needed for confirm_with_revisions"
+known_events:            # ANNOTATION ONLY
+  - {date: "2025-10-10", event: "媒体：年初至今 新易盛 +861%（低点至高点），中际旭创 +685%，天孚通信 +562%"}
+  - {date: "2025-12-31", event: "2025 全年涨幅：中际旭创 +428%、新易盛 +410%、天孚通信 +284%"}
+  - {date: "2026-01-30", event: "业绩预告：中际旭创净利 98–118 亿 (+89.5%~128%)；新易盛 +231%~249%"}
+  - {date: "2026-03-30", event: "中际旭创年报：营收 382.4 亿 (+60%)，归母净利 108 亿 (+109%)"}
+hypotheses:
+  H1: "news attention leads the 2025 breakout only weakly (earnings-driven theme: price may lead news)"
+  H2: "time-series momentum captures most of 2025; this is the 'right theme, earnings delivered' case"
+  H3: "upstream (lasers, test equipment) lag the three leaders; watch for co-mention-based linkage, not hand lists"
+  H4: "KEY RISK: crowding flag fires mid-2025 while expectations keep being revised UP -> exit value < 0 (false positive). Tests whether H4 needs confirm_with_revisions"
+expectations_note: "core names have positive FCF -> fcf engine should work; implied growth rises with price but realised earnings also rise"
+sources:
+  - https://e.chinacqsb.com/attachment/202510/10/410786df-c51b-4419-b8a3-21af47952db4.pdf
+  - https://news.china.com/socialgd/10000169/20260131/49213827.html
+  - https://stock.10jqka.com.cn/20260331/c675646713.shtml
+  - https://m.jiemian.com/article/13962033.html
+# ---- data-build rules (scripts/fetch_case_data.py); rules, not hindsight lists ----
+etf_rule:
+  name_regex: "通信ETF"                 # mapped to the theme at listing
+  name_exclude: "港股"
+  holdings_pool_regex: "人工智能|AI|算力|云计算|5G|数据"   # mapped once a public top-10 holds >= 2 core names
+  holdings_min_core: 2
+  second_order_min_weeks: 4
+wiki_articles:
+  zh.wikipedia: [中际旭创, 新易盛, 天孚通信]

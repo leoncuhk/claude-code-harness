@@ -1,0 +1,31 @@
+[project]
+name = "theme-alpha"
+version = "0.1.0"
+description = "Theme lifecycle research: attention, concept momentum, spillover, crowding x implied expectations"
+requires-python = ">=3.11"
+dependencies = [
+  "numpy>=1.26",
+  "pandas>=2.2",
+  "scipy>=1.11",
+  "statsmodels>=0.14",
+  "pyyaml>=6",
+  "pyarrow>=15",
+]
+
+[project.optional-dependencies]
+data = ["tushare>=1.4", "akshare>=1.14"]
+web = ["requests>=2.31"]
+nlp = ["sentence-transformers>=3.0"]
+cv = ["skfolio>=0.7"]
+dev = ["pytest>=8"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

@@ -1,0 +1,18 @@
+id: H1
+title: Attention weak->strong transition leads theme basket excess return
+params:
+  popularity: ewm            # primary (pre-registered); 'classic' = BERTrend cumulative+decay (secondary)
+  half_life_weeks: 8
+  window_weeks: 26           # percentile window
+  slope_window_weeks: 6
+  cooldown_weeks: 26         # event = first strong in 26w, preceded by weak
+  horizon_weeks: 13
+  min_members: 5
+  n_placebo: 500
+gates:
+  n_events_ge: 30
+  car_mean_gt: 0.0
+  t_stat_ge: 3.0             # HLZ hurdle for a new signal
+  placebo_p_lt: 0.01
+  net_car_mean_gt: 0.0
+seed: 0
